@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()      // 使用表单登录
                 .loginPage("/login.html")  // 未登录时重定向到登录页面， 不指定则使用Spring security 默认提供的登录页面
-                .loginProcessingUrl("/admin/login")  // 指定 登录接口 url
+                .loginProcessingUrl("/admin/login")  // 指定 登录接口 url,默认参数名为 username password
                 .successHandler(loginSuccessHandler)  // 指定登录成功处理类，不指定则重定向
                 .failureHandler(loginFailureHandler) // 指定登录失败处理类，不指定则重定向
 
