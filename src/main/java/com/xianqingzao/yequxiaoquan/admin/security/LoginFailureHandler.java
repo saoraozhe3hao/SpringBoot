@@ -1,6 +1,7 @@
 package com.xianqingzao.yequxiaoquan.admin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -19,8 +20,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        // 返回一个 json
-        response.getWriter().write(objectMapper.writeValueAsString(e)); // e 认证失败的原因
+        RestfulResult result = new RestfulResult(-1, e.getLocalizedMessage());
+        response.getWriter().write(objectMapper.writeValueAsString(result));  // 将对象转成JSON字符串
     }
 }

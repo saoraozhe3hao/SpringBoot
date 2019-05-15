@@ -1,6 +1,7 @@
 package com.xianqingzao.yequxiaoquan.admin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -18,7 +19,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        // 返回一个 json
-        response.getWriter().write(objectMapper.writeValueAsString(authentication)); // authentication 里有权限列表
+        RestfulResult result = new RestfulResult();
+        response.getWriter().write(objectMapper.writeValueAsString(result));
+        request.getSession().setAttribute("username", request.getParameter("username"));
     }
 }

@@ -4,6 +4,7 @@ import com.xianqingzao.yequxiaoquan.admin.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface UserMapper {
-    public User getUser(User userParam);   // SQL操作函数
+public interface UserDao {
+    public User getUserByName(User userParam);
+    public User getUserById(String id);
 }

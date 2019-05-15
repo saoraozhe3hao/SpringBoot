@@ -18,7 +18,6 @@ public class LogOutHandler implements LogoutSuccessHandler {
 
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        // 返回一个 json
         response.getWriter().write(objectMapper.writeValueAsString(authentication));
     }
 }

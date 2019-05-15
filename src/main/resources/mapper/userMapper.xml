@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xianqingzao.yequxiaoquan.admin.dao.UserMapper">    <!-- SQL操作接口 -->
+<mapper namespace="com.xianqingzao.yequxiaoquan.admin.dao.UserDao">    <!-- SQL操作接口 -->
     <cache/>    <!-- 本映射器开启二级缓存 -->
 
-    <!-- 多参数SQL 映射的 函数，其入参为POJO -->
-    <select id="getUser" parameterType="User" resultType="User">
+    <select id="getUserByName" parameterType="User" resultType="User">
         select * from user where username=#{username}
+    </select>
+    <select id="getUserById" parameterType="String" resultType="User">
+        select * from user where id=#{id}
     </select>
 </mapper>
