@@ -39,8 +39,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()   // 开始授权配置
                 .antMatchers("/admin/captcha").permitAll()  // 对图片验证码 的请求，无需权限
                 .antMatchers("/admin/logout").permitAll()  // 对登出 的请求，无需权限
-                .antMatchers(HttpMethod.POST, "/manage/*").hasRole("manager") // 对 /manage/* 的请求，需要拥有manager角色
-                .antMatchers("/client/*").hasAuthority("client") // 对 /client/* 的请求，需要拥有client权限
+                .antMatchers(HttpMethod.GET, "/admin/product*").hasAuthority("product.all")
+                .antMatchers("/admin/tipOff*").hasAuthority("tipOff")
                 .anyRequest().authenticated()           // 针对所有请求，进行身份认证
 
                 .and()
