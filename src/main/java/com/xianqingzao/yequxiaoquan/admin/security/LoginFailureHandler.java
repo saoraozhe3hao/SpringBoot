@@ -20,7 +20,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        RestfulResult result = new RestfulResult(-1, e.getLocalizedMessage());
+        RestfulResult result = new RestfulResult(-1, e.getMessage());
         response.getWriter().write(objectMapper.writeValueAsString(result));  // 将对象转成JSON字符串
     }
 }

@@ -3,10 +3,17 @@
 <mapper namespace="com.xianqingzao.yequxiaoquan.admin.dao.UserDao">    <!-- SQL操作接口 -->
     <cache/>    <!-- 本映射器开启二级缓存 -->
 
-    <select id="getUserByName" parameterType="User" resultType="User">
+    <select id="getUserByName" parameterType="String" resultType="User">
         select * from user where username=#{username}
     </select>
-    <select id="getUserById" parameterType="String" resultType="User">
-        select * from user where id=#{id}
+    <select id="getRolesByUserId" parameterType="String" resultType="Role">
+        select role.id,role.name as id,name from role,user_role where user_role.userId=#{userId} and user_role.roleId=role.id
+    </select>
+    <select id="getAuthoritiesByRoles" parameterType="List" resultType="String">
+        select distinct authority.name from authority,role_authority where authority.id=role_authority.authorityId
+        and role_authority.roleId in
+        <foreach item="role" index="index" collection="list" open="(" separator="," close=")">
+            #{role.id}
+        </foreach>
     </select>
 </mapper>

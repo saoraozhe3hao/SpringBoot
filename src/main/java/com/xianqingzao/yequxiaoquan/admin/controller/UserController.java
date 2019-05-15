@@ -3,6 +3,7 @@ package com.xianqingzao.yequxiaoquan.admin.controller;
 import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
 import com.xianqingzao.yequxiaoquan.admin.dao.UserDao;
 import com.xianqingzao.yequxiaoquan.admin.pojo.User;
+import com.xianqingzao.yequxiaoquan.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +17,12 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     // 用户详情
     @RequestMapping(value="/me", method=RequestMethod.GET)
     public RestfulResult<User> me(@SessionAttribute("username") String username) throws Exception {
-        User user = userDao.getUserByName(new User(username));
+        User user = userService.getUserByName(username);
         RestfulResult result = new RestfulResult();
         result.setData(user);
         return result;
