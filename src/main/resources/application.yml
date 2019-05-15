@@ -1,0 +1,12 @@
+server:
+  port: 8081 # 端口
+spring:
+  datasource:        # 数据源
+    username: root
+    password: wowo000
+    url: jdbc:mysql://localhost:3306/user
+
+mybatis:
+  config-location:  classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*Mapper.xml  # param 和 result 类 所在包
+  type-aliases-package: com.xianqingzao.yequxiaoquan.admin.pojo

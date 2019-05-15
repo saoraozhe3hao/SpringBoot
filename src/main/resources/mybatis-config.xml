@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!--<properties resource="db.properties"></properties>    &lt;!&ndash; 不用Maven也能引入properties文件 &ndash;&gt;-->
 
     <settings>    <!-- 一些设置 -->
         <setting name ="cacheEnabled" value="true"/>
@@ -11,20 +10,4 @@
         <!-- lazyLoadingEnabled为true时，aggressiveLazyLoading才有意义 -->
         <setting name="aggressiveLazyLoading" value="true"/>    <!-- 开启延迟加载的情况下，是否预先加载第二层 -->
     </settings>
-
-    <!--<environments default="development">    &lt;!&ndash; 数据库列表 &ndash;&gt;-->
-        <!--<environment id="development">    &lt;!&ndash; 数据库项 &ndash;&gt;-->
-            <!--<transactionManager type="JDBC" />   &lt;!&ndash; 事务管理器类型 &ndash;&gt;-->
-            <!--<dataSource type="POOLED">   &lt;!&ndash; 连接池类型 &ndash;&gt;-->
-                <!--<property name="driver" value="com.mysql.jdbc.Driver" />-->
-                <!--<property name="url" value="jdbc:mysql://rm-8vb101k57u1hnn55pdo.mysql.zhangbei.rds.aliyuncs.com:3306/user" />   &lt;!&ndash; 指明仓库 &ndash;&gt;-->
-                <!--<property name="username" value="root" />-->
-                <!--<property name="password" value="WOwo000*" />-->
-            <!--</dataSource>-->
-        <!--</environment>-->
-    <!--</environments>-->
-
-    <mappers>    <!-- 映射配置文件列表 -->
-        <mapper resource="userMapper.xml"></mapper>
-    </mappers>
 </configuration>

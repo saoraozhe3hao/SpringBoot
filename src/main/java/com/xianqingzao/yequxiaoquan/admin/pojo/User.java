@@ -1,11 +1,15 @@
-package com.xianqingzao.yequxiaoquan.admin.result;
+package com.xianqingzao.yequxiaoquan.admin.pojo;
 
 import java.io.Serializable;
 
-public class UserResult implements Serializable {
+public class User implements Serializable {
     private String id;
     private String username;
     private String password;
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public String getId() {
         return id;
