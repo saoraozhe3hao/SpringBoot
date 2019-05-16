@@ -2,12 +2,10 @@ package com.xianqingzao.yequxiaoquan.admin.common;
 
 import com.xianqingzao.yequxiaoquan.utils.CaptchaUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.util.Date;
 import java.util.Map;

@@ -1,7 +1,5 @@
 package com.xianqingzao.yequxiaoquan.admin.security;
 
-import com.xianqingzao.yequxiaoquan.admin.dao.UserDao;
-import com.xianqingzao.yequxiaoquan.admin.pojo.Role;
 import com.xianqingzao.yequxiaoquan.admin.pojo.User;
 import com.xianqingzao.yequxiaoquan.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 @Component
 public class UserDetailService implements UserDetailsService {

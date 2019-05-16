@@ -1,16 +1,10 @@
 package com.xianqingzao.yequxiaoquan.admin.security;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component("rbacService")
 public class RbacService {
@@ -33,6 +27,7 @@ public class RbacService {
             String regexStart = "/admin/" + module + "/";
             String regexEnd = "/admin/" + module + "$";
             if (path.matches(regexStart) || path.matches(regexEnd)) {
+                // 权限列表里有的模块，才允许访问，且请求方法需要匹配
                 if (method.equals("get") || method.equals(allow) || allow.equals("all")) {
                     return true;
                 }

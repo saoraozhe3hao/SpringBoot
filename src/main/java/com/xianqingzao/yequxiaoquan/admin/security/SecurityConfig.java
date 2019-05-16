@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()   // 开始 登出配置
                 .logoutUrl("/signOut")  // 登出接口，默认为 /logout
                 .logoutSuccessUrl("/logout")  // 登出重定向到的路径，默认为loginPage
-                .logoutSuccessHandler(logOutHandler) // 与logoutSuccessUrl互斥
+//                .logoutSuccessHandler(logOutHandler) // 与logoutSuccessUrl互斥
                 .deleteCookies("JSESSION") // 登出时 清理 cookie
 
                 .and()
