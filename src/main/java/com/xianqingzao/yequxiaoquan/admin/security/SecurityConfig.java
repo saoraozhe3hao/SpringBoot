@@ -15,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
     @Autowired
@@ -29,24 +29,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore( captchaFilter, UsernamePasswordAuthenticationFilter.class )
                 .formLogin()      // 使用表单登录
-                .loginPage("/admin/logout")  // 未登录时重定向到登录页面， 不指定则使用Spring security 默认提供的登录页面
-                .loginProcessingUrl("/admin/login")  // 指定 登录接口 url,默认参数名为 username password
+                .loginPage("/logout")  // 未登录时重定向到登录页面， 不指定则使用Spring security 默认提供的登录页面
+                .loginProcessingUrl("/login")  // 指定 登录接口 url,默认参数名为 username password
                 .successHandler(loginSuccessHandler)  // 指定登录成功处理类，不指定则重定向
                 .failureHandler(loginFailureHandler) // 指定登录失败处理类，不指定则重定向
 
 
                 .and()
                 .authorizeRequests()   // 开始授权配置
-                .antMatchers("/admin/captcha").permitAll()  // 对图片验证码 的请求，无需权限
-                .antMatchers("/admin/logout").permitAll()  // 对登出 的请求，无需权限
-                .antMatchers(HttpMethod.GET, "/admin/product*").hasAuthority("product.all")
-                .antMatchers("/admin/tipOff*").hasAuthority("tipOff")
+                .antMatchers("/captcha").permitAll()  // 对图片验证码 的请求，无需权限
+                .antMatchers("/logout").permitAll()  // 对登出 的请求，无需权限
+                .antMatchers("/admin/*").access("@rbacService.hasPermission(request, authentication)")
                 .anyRequest().authenticated()           // 针对所有请求，进行身份认证
 
                 .and()
                 .logout()   // 开始 登出配置
-                .logoutUrl("/admin/signOut")  // 登出接口，默认为 /logout
-                .logoutSuccessUrl("/admin/logout")  // 登出重定向到的路径，默认为loginPage
+                .logoutUrl("/signOut")  // 登出接口，默认为 /logout
+                .logoutSuccessUrl("/logout")  // 登出重定向到的路径，默认为loginPage
                 .logoutSuccessHandler(logOutHandler) // 与logoutSuccessUrl互斥
                 .deleteCookies("JSESSION") // 登出时 清理 cookie
 

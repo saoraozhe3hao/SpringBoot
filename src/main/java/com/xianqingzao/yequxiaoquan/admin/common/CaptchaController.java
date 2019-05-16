@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Map;
 
 @Controller  // 注明本类是Controller Bean, Spring 容器相关注解来自org.springframework.stereotype
-@RequestMapping("/admin")
 public class CaptchaController {
 
     // 获取验证码图片
