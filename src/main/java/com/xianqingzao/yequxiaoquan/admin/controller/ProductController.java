@@ -1,13 +1,13 @@
 package com.xianqingzao.yequxiaoquan.admin.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.admin.pojo.Product;
 import com.xianqingzao.yequxiaoquan.admin.pojo.User;
-import com.xianqingzao.yequxiaoquan.admin.service.UserService;
+import com.xianqingzao.yequxiaoquan.admin.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,21 +16,13 @@ import javax.servlet.http.HttpSession;
 public class ProductController {
 
     @Autowired
-    private UserService userService;
+    private ProductService productService;
 
-    // 商品列表
-    @RequestMapping(value="/product", method=RequestMethod.GET)
-    public RestfulResult<User> product(@SessionAttribute("username") String username) throws Exception {
-        User user = userService.getUserByName(username);
-        RestfulResult result = new RestfulResult();
-        return result;
-    }
+    @RequestMapping("/product")
+    public RestfulResult<PageInfo<Product>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
 
-    // 商户举报列表
-    @RequestMapping(value="/tipOff")
-    public RestfulResult<User> tipOff(@SessionAttribute("username") String username) throws Exception {
-        User user = userService.getUserByName(username);
-        RestfulResult result = new RestfulResult();
-        return result;
+        Page<Product> products = productService.findByPage(pageNum, pageSize);
+        PageInfo<Product> pageInfo = new PageInfo<>(products);
+        return new RestfulResult(pageInfo);
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.admin.dao.ProductDao">    <!-- SQL操作接口 -->
+    <cache/>    <!-- 本映射器开启二级缓存 -->
+
+    <select id="findByPage" resultType="Product">
+        select * from product
+    </select>
+</mapper>

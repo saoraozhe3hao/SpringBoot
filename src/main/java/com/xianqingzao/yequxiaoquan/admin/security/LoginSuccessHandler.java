@@ -34,6 +34,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         request.getSession().setAttribute("authorities",authorities);
 
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString( new RestfulResult()));
+        response.getWriter().write(objectMapper.writeValueAsString( new RestfulResult(null)));
     }
 }

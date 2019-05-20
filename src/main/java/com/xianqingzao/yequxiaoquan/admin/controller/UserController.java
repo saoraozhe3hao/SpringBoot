@@ -22,9 +22,7 @@ public class UserController {
     public RestfulResult<User> me(@SessionAttribute("username") String username, @SessionAttribute("authorities") List<String> authorities) throws Exception {
         User user = new User(username);
         user.setAuthorities(authorities);
-        RestfulResult result = new RestfulResult();
-        result.setData(user);
-        return result;
+        return new RestfulResult(user);
     }
 
     // 登出
@@ -32,7 +30,6 @@ public class UserController {
     public RestfulResult logout(HttpSession session) throws Exception {
         session.removeAttribute("username");
         session.removeAttribute("authorities");
-        RestfulResult result = new RestfulResult(-4,"");
-        return result;
+        return new RestfulResult(-4,"");
     }
 }

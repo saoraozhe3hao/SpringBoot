@@ -7,7 +7,8 @@ public class RestfulResult<T> {
     private String msg;
     private T data;
 
-    public RestfulResult() {
+    public RestfulResult(T data) {
+        this.data = data;
     }
 
     public RestfulResult(Integer code, String msg) {
