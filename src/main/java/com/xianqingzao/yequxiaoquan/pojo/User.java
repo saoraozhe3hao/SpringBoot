@@ -1,13 +1,16 @@
 package com.xianqingzao.yequxiaoquan.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class User implements Serializable {
     private String id;
     private String username;
+    private String status;
     @JsonIgnore  // 作为响应时，忽略这个字段
     private String password;
     @JsonIgnore
@@ -24,6 +27,14 @@ public class User implements Serializable {
 
     public User(String username) {
         this.username = username;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Role> getRoles() {

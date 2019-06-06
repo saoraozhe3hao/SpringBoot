@@ -32,7 +32,7 @@ public class UserDetailService implements UserDetailsService {
         }
         // 参数依次为：用户名，数据库里记录的密码，可用，未过期，密码未过期，未被锁定，权限列表
         // Spring Security 会 自动对比 PasswordEncoder.match(用户输入的密码) 和 这里传入的密码
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), true, true,
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), user.getStatus().equals("normal"), true,
                 true, true, authorities);
     }
 }

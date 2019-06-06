@@ -2,7 +2,6 @@ package com.xianqingzao.yequxiaoquan.dao;
 
 import com.xianqingzao.yequxiaoquan.pojo.Role;
 import com.xianqingzao.yequxiaoquan.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
