@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.security;
+package com.xianqingzao.yequxiaoquan.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

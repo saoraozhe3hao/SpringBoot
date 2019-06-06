@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.pojo;
+package com.xianqingzao.yequxiaoquan.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

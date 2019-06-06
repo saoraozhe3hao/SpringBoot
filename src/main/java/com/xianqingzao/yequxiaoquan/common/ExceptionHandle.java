@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.common;
+package com.xianqingzao.yequxiaoquan.common;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

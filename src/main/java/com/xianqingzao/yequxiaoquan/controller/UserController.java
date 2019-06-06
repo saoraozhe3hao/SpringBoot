@@ -1,8 +1,8 @@
-package com.xianqingzao.yequxiaoquan.admin.controller;
+package com.xianqingzao.yequxiaoquan.controller;
 
-import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
-import com.xianqingzao.yequxiaoquan.admin.pojo.User;
-import com.xianqingzao.yequxiaoquan.admin.service.UserService;
+import com.xianqingzao.yequxiaoquan.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.pojo.User;
+import com.xianqingzao.yequxiaoquan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.common;
+package com.xianqingzao.yequxiaoquan.common;
 
 public class RestfulException extends RuntimeException {
     private Integer code = -1;

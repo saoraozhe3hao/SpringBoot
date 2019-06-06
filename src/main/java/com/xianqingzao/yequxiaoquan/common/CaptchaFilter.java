@@ -1,6 +1,6 @@
-package com.xianqingzao.yequxiaoquan.admin.common;
+package com.xianqingzao.yequxiaoquan.common;
 
-import com.xianqingzao.yequxiaoquan.admin.security.LoginFailureHandler;
+import com.xianqingzao.yequxiaoquan.security.LoginFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

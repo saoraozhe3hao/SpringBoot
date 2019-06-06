@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.OperatorDao">    <!-- SQL操作接口 -->
+    <cache/>    <!-- 本映射器开启二级缓存 -->
+
+    <select id="findByPage" resultMap="operatorMap">
+        <!-- 用左外连接方式实现 有悬浮组的一对一查询 -->
+        SELECT operator.*,creator.name as creator FROM user operator LEFT JOIN user creator ON operator.creatorId=creator.id
+    </select>
+
+    <resultMap type="Operator" id="operatorMap">
+        <id column="id" property="id"/>
+        <collection property="roles" column="id" select="com.xianqingzao.yequxiaoquan.dao.UserDao.getRolesByUserId"/>
+    </resultMap>
+</mapper>

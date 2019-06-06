@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.common;
+package com.xianqingzao.yequxiaoquan.common;
 
 import com.xianqingzao.yequxiaoquan.utils.CaptchaUtil;
 import org.springframework.stereotype.Controller;

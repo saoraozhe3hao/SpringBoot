@@ -1,8 +1,8 @@
-package com.xianqingzao.yequxiaoquan.admin.service;
+package com.xianqingzao.yequxiaoquan.service;
 
-import com.xianqingzao.yequxiaoquan.admin.dao.UserDao;
-import com.xianqingzao.yequxiaoquan.admin.pojo.Role;
-import com.xianqingzao.yequxiaoquan.admin.pojo.User;
+import com.xianqingzao.yequxiaoquan.dao.UserDao;
+import com.xianqingzao.yequxiaoquan.pojo.Role;
+import com.xianqingzao.yequxiaoquan.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

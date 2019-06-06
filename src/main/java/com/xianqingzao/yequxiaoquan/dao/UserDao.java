@@ -1,12 +1,13 @@
-package com.xianqingzao.yequxiaoquan.admin.dao;
+package com.xianqingzao.yequxiaoquan.dao;
 
-import com.xianqingzao.yequxiaoquan.admin.pojo.Role;
-import com.xianqingzao.yequxiaoquan.admin.pojo.User;
+import com.xianqingzao.yequxiaoquan.pojo.Role;
+import com.xianqingzao.yequxiaoquan.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
+@Repository
 public interface UserDao {
     public User getUserByName(String username);
     public List<Role> getRolesByUserId(String userId);

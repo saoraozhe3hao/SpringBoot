@@ -1,7 +1,7 @@
-package com.xianqingzao.yequxiaoquan.admin.security;
+package com.xianqingzao.yequxiaoquan.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.common.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

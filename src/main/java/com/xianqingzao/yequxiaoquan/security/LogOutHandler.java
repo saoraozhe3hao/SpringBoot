@@ -1,4 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.security;
+package com.xianqingzao.yequxiaoquan.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

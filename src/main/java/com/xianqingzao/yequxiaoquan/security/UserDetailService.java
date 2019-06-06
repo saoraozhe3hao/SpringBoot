@@ -1,10 +1,9 @@
-package com.xianqingzao.yequxiaoquan.admin.security;
+package com.xianqingzao.yequxiaoquan.security;
 
-import com.xianqingzao.yequxiaoquan.admin.pojo.User;
-import com.xianqingzao.yequxiaoquan.admin.service.UserService;
+import com.xianqingzao.yequxiaoquan.pojo.User;
+import com.xianqingzao.yequxiaoquan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

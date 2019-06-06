@@ -1,15 +1,12 @@
-package com.xianqingzao.yequxiaoquan.admin.controller;
+package com.xianqingzao.yequxiaoquan.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
-import com.xianqingzao.yequxiaoquan.admin.pojo.Product;
-import com.xianqingzao.yequxiaoquan.admin.pojo.User;
-import com.xianqingzao.yequxiaoquan.admin.service.ProductService;
+import com.xianqingzao.yequxiaoquan.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.pojo.Product;
+import com.xianqingzao.yequxiaoquan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/admin")

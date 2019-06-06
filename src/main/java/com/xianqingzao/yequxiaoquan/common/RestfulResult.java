@@ -1,6 +1,4 @@
-package com.xianqingzao.yequxiaoquan.admin.common;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.xianqingzao.yequxiaoquan.common;
 
 public class RestfulResult<T> {
     private Integer code = 0;

@@ -1,9 +1,8 @@
-package com.xianqingzao.yequxiaoquan.admin.security;
+package com.xianqingzao.yequxiaoquan.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xianqingzao.yequxiaoquan.admin.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.common.RestfulResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;

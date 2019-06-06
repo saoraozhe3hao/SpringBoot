@@ -4,12 +4,12 @@ spring:
   datasource:
     username: root
     password: wowo000
-    url: jdbc:mysql://localhost:3306/user
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=GMT%2B8
 
 mybatis:
   config-location:  classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.xianqingzao.yequxiaoquan.admin.pojo
+  type-aliases-package: com.xianqingzao.yequxiaoquan.pojo
 
 pagehelper:
   helper-dialect: mysql
