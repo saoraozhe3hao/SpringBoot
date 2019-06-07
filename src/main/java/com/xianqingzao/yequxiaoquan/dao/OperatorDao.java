@@ -9,6 +9,14 @@ import java.util.List;
 @Repository
 public interface OperatorDao {
     Page<Operator> findByPage();
+
     void changeStatus(List idList, String status);
+
     void resetPwd(String id, String password);
+
+    void alter(String id, String username);
+
+    void cleanRole(String userId);
+
+    void addRoleList(String userId, List roleIds);
 }
