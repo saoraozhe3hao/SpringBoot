@@ -17,24 +17,25 @@
 
     <!-- 多参数，入参是List -->
     <update id="changeStatus">
-        update user set status=#{status} where id in
+        UPDATE user SET status=#{status} WHERE id IN
         <foreach item="userId" index="index" collection="idList" open="(" separator="," close=")">
             #{userId}
         </foreach>
+        ORDER BY id
     </update>
 
     <update id="resetPwd">
-        update user set password=#{password} where id=#{id}
+        UPDATE user SET password=#{password} WHERE id=#{id}
     </update>
 
     <update id="alter">
-        update user set username=#{username} where id=#{id}
+        UPDATE USER SET username=#{username} WHERE id=#{id}
     </update>
     <delete id="cleanRole">
-        delete from user_role where userId=#{userId}
+        DELETE FROM user_role WHERE userId=#{userId}
     </delete>
     <insert id="addRoleList">
-        insert into user_role(userId, roleId) values
+        INSERT INTO user_role(userId, roleId) VALUES
         <foreach item="roleId" index="index" collection="roleIds" separator=",">
             (#{userId} , #{roleId})
         </foreach>

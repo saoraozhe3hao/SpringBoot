@@ -3,15 +3,15 @@
 <mapper namespace="com.xianqingzao.yequxiaoquan.dao.UserDao">    <!-- SQL操作接口 -->
 
     <select id="getUserByName" parameterType="String" resultType="User">
-        select * from user where username=#{username}
+        SELECT * FROM user WHERE username=#{username}
     </select>
     <!-- 用等值连接实现 无悬浮组的一对一查询 -->
     <select id="getRolesByUserId" parameterType="String" resultType="Role">
-        select role.id,role.name as id,name from role,user_role where user_role.userId=#{userId} and user_role.roleId=role.id
+        SELECT role.id,role.name AS id,name FROM role,user_role WHERE user_role.userId=#{userId} AND user_role.roleId=role.id
     </select>
     <select id="getAuthoritiesByRoles" parameterType="List" resultType="String">
-        select distinct authority.name from authority,role_authority where authority.id=role_authority.authorityId
-        and role_authority.roleId in
+        SELECT DISTINCT authority.name FROM authority,role_authority WHERE authority.id=role_authority.authorityId
+        AND role_authority.roleId IN
         <foreach item="role" index="index" collection="list" open="(" separator="," close=")">
             #{role.id}
         </foreach>

@@ -8,6 +8,7 @@ import com.xianqingzao.yequxiaoquan.pojo.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class OperatorService {
         return roleDao.getAllRole();
     }
 
+    @Transactional
     public void alter(String id, String username, List roleIds) {
         operatorDao.alter(id, username);
         operatorDao.cleanRole(id);

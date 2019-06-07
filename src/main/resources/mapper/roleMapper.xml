@@ -3,6 +3,6 @@
 <mapper namespace="com.xianqingzao.yequxiaoquan.dao.RoleDao">    <!-- SQL操作接口 -->
 
     <select id="getAllRole" resultType="Role">
-        select * from role
+        SELECT * FROM role
     </select>
 </mapper>
