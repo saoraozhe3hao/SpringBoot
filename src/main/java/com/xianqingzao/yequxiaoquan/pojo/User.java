@@ -17,16 +17,20 @@ public class User implements Serializable {
     private List<Role> roles;
     private List<String> authorities;
 
+    public User() {
+
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
     public List<String> getAuthorities() {
         return authorities;
     }
 
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
-    }
-
-    public User(String username) {
-        this.username = username;
     }
 
     public String getStatus() {

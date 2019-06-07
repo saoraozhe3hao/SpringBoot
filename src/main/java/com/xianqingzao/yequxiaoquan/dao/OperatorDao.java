@@ -10,4 +10,5 @@ import java.util.List;
 public interface OperatorDao {
     Page<Operator> findByPage();
     void changeStatus(List idList, String status);
+    void resetPwd(String id, String password);
 }

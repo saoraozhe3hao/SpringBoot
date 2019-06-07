@@ -3,9 +3,9 @@ package com.xianqingzao.yequxiaoquan.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xianqingzao.yequxiaoquan.dao.OperatorDao;
-import com.xianqingzao.yequxiaoquan.dao.UserDao;
 import com.xianqingzao.yequxiaoquan.pojo.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +14,8 @@ import java.util.List;
 public class OperatorService {
     @Autowired
     private OperatorDao operatorDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Page<Operator> findByPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -26,6 +28,10 @@ public class OperatorService {
     }
     public void enable(List idList) {
         operatorDao.changeStatus(idList,"normal");
+    }
+    public void resetPwd(String id, String password) {
+        String p = passwordEncoder.encode(password);
+        operatorDao.resetPwd(id, p);
     }
 }
 
