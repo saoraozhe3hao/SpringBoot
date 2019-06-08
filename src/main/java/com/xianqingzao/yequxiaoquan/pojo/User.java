@@ -16,6 +16,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)  // 值未null的不输出
 public class User implements Serializable {
     private String id;
+    @Pattern(regexp = "^1[34578]\\d{9}$", message = "手机号码格式不正确")
     @Pattern(regexp = "^1[34578]\\d{9}$", message = "手机号码格式不正确", groups = {SecondValidGroup.class})
     private String username;
     @Pattern(regexp = "^[a-zA-Z\\u3400-\\u4DB5\\u4E00-\\u9FA5\\u9FA6-\\u9FBB\\uF900-\\uFA2D\\uFA30-\\uFA6A\\uFA70-\\uFAD9]{1,8}$", message = "请输入正确的姓名")
@@ -25,9 +26,11 @@ public class User implements Serializable {
     private String idNumber;
     @JsonIgnore  // 作为响应时，忽略这个字段
     private String password; // 作为查询结果时使用
+    @Size(min = 32, max = 32)
     @Size(min = 32, max = 32, groups = {FirstValidGroup.class})
     private String pwd;      // 作为提交参数时使用
     private List<Role> roles;
+    @NotEmpty
     @NotEmpty(groups = {SecondValidGroup.class})
     private List<String> roleIds;
     private List<String> authorities;
