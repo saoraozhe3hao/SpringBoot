@@ -2,15 +2,19 @@ package com.xianqingzao.yequxiaoquan.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.xianqingzao.yequxiaoquan.common.FirstValidGroup;
 import com.xianqingzao.yequxiaoquan.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.common.SecondValidGroup;
 import com.xianqingzao.yequxiaoquan.pojo.Query;
 import com.xianqingzao.yequxiaoquan.pojo.User;
 import com.xianqingzao.yequxiaoquan.pojo.Role;
-import com.xianqingzao.yequxiaoquan.pojo.User;
 import com.xianqingzao.yequxiaoquan.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Map;
 
@@ -51,21 +55,21 @@ public class OperatorController {
     }
 
     @RequestMapping(value = "/operator/{id}/password", method = RequestMethod.PUT)
-    public RestfulResult resetPwd(@PathVariable("id") String id, @RequestBody Map<String, String> map) {
-        operatorServicee.resetPwd(id, map.get("password"));
+    // @Validated 是Spring对@Valid的封装，有对属性的分组功能
+    public RestfulResult resetPwd(@PathVariable("id") String id, @Validated({FirstValidGroup.class}) @RequestBody User user) {
+        operatorServicee.resetPwd(id, user.getPwd());
         return new RestfulResult(null);
     }
 
     @RequestMapping(value = "/operator/{id}", method = RequestMethod.PUT)
-    public RestfulResult alter(@PathVariable("id") String id, @RequestBody Map<String, Object> map) {
-        String username = (String) map.get("username");
-        List roleIds = (List<String>) map.get("roleIds");
-        operatorServicee.alter(id, username, roleIds);
+    public RestfulResult alter(@PathVariable("id") String id, @Validated({SecondValidGroup.class}) @RequestBody User user) {
+        operatorServicee.alter(id, user.getUsername(), user.getRoleIds());
         return new RestfulResult(null);
     }
 
     @RequestMapping(value = "/operator", method = RequestMethod.POST)
-    public RestfulResult add(@RequestBody User user, @SessionAttribute("userDetail") User creator) {
+    // @Valid 来自hibernate-validator，没有对属性的分组功能
+    public RestfulResult add(@Valid @RequestBody User user, @SessionAttribute("userDetail") User creator) {
         operatorServicee.add(creator.getId(), user);
         return new RestfulResult(null);
     }
