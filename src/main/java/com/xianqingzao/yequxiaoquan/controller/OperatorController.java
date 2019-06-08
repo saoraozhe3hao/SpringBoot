@@ -3,6 +3,7 @@ package com.xianqingzao.yequxiaoquan.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.xianqingzao.yequxiaoquan.common.RestfulResult;
+import com.xianqingzao.yequxiaoquan.pojo.Query;
 import com.xianqingzao.yequxiaoquan.pojo.User;
 import com.xianqingzao.yequxiaoquan.pojo.Role;
 import com.xianqingzao.yequxiaoquan.pojo.User;
@@ -21,8 +22,12 @@ public class OperatorController {
     private OperatorService operatorServicee;
 
     @RequestMapping(value = "/operator", method = RequestMethod.GET)
-    public RestfulResult<PageInfo<User>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
-        Page<User> operators = operatorServicee.findByPage(pageNum, pageSize);
+    public RestfulResult<PageInfo<User>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize,
+                                                    @RequestParam(value = "search", required = false) String search,
+                                                    @RequestParam(value = "status", required = false) String status) {
+        Query query = new Query(pageNum, pageSize, search);
+        query.setStatus(status);
+        Page<User> operators = operatorServicee.findByPage(query);
         PageInfo<User> pageInfo = new PageInfo<>(operators);
         return new RestfulResult(pageInfo);
     }

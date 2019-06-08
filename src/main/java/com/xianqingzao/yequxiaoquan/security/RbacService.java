@@ -5,15 +5,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Component("rbacService")
 public class RbacService {
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+        // 未登录
+        if(authentication.getPrincipal() instanceof String){
+            return false;
+        }
         Collection<? extends GrantedAuthority> authorityList = authentication.getAuthorities();
         String method = request.getMethod().toLowerCase();
         String path = request.getServletPath();

@@ -6,6 +6,14 @@
         <!-- 用左外连接方式实现 有悬浮组的一对一查询 -->
         SELECT operator.*,creator.name as creator FROM user operator LEFT JOIN user creator ON
         operator.creatorId=creator.id
+        <where>   <!-- 能把多余的and去掉 -->
+            <if test="search !=null and search !=''">
+                AND operator.name LIKE concat('%', #{search}, '%')
+            </if>
+            <if test="status !=null and status !=''">
+                AND operator.status=#{status}
+            </if>
+        </where>
     </select>
 
     <!-- 跨多表，用级联单独查询 -->

@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xianqingzao.yequxiaoquan.dao.OperatorDao;
 import com.xianqingzao.yequxiaoquan.dao.RoleDao;
+import com.xianqingzao.yequxiaoquan.pojo.Query;
 import com.xianqingzao.yequxiaoquan.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +22,9 @@ public class OperatorService {
     @Autowired
     private RoleDao roleDao;
 
-    public Page<User> findByPage(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        Page<User> operators = operatorDao.findByPage();
+    public Page<User> findByPage(Query query) {
+        PageHelper.startPage(query.getPageNum(), query.getPageSize());
+        Page<User> operators = operatorDao.findByPage(query);
         return operators;
     }
 
