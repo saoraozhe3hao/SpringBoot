@@ -20,8 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginFailureHandler loginFailureHandler;
     @Autowired
-    private LogOutHandler logOutHandler;
-    @Autowired
     private CaptchaFilter captchaFilter;
 
     @Override

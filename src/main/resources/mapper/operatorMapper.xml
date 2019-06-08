@@ -9,7 +9,7 @@
     </select>
 
     <!-- 跨多表，用级联单独查询 -->
-    <resultMap type="Operator" id="operatorMap">
+    <resultMap type="User" id="operatorMap">
         <!-- 级联必须指定主键 -->
         <id column="id" property="id"/>
         <collection property="roles" column="id" select="com.xianqingzao.yequxiaoquan.dao.UserDao.getRolesByUserId"/>
@@ -39,6 +39,11 @@
         <foreach item="roleId" index="index" collection="roleIds" separator=",">
             (#{userId} , #{roleId})
         </foreach>
-    </insert >
+    </insert>
 
+    <!-- useGeneratedKeys表示插入后，将数据库ID回填给入参， keyProperty指明回填的POJO字段 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO user(username, password, name, idNumber, creatorId, status)
+        VALUES (#{user.username},#{user.password},#{user.name},#{user.idNumber},#{creatorId},#{user.status})
+    </insert>
 </mapper>

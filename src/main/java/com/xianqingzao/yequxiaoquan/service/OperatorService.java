@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xianqingzao.yequxiaoquan.dao.OperatorDao;
 import com.xianqingzao.yequxiaoquan.dao.RoleDao;
-import com.xianqingzao.yequxiaoquan.pojo.Operator;
+import com.xianqingzao.yequxiaoquan.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,9 @@ public class OperatorService {
     @Autowired
     private RoleDao roleDao;
 
-    public Page<Operator> findByPage(Integer pageNum, Integer pageSize) {
+    public Page<User> findByPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        Page<Operator> operators = operatorDao.findByPage();
+        Page<User> operators = operatorDao.findByPage();
         return operators;
     }
 
@@ -48,6 +48,14 @@ public class OperatorService {
         operatorDao.alter(id, username);
         operatorDao.cleanRole(id);
         operatorDao.addRoleList(id, roleIds);
+    }
+
+    @Transactional
+    public void add(String creatorId, User user) {
+        user.setStatus("normal");
+        user.setPassword(passwordEncoder.encode(user.getPwd()));
+        operatorDao.add(creatorId, user);
+        operatorDao.addRoleList(user.getId(), user.getRoleIds());
     }
 }
 

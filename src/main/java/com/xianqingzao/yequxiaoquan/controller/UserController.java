@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -18,18 +19,18 @@ public class UserController {
     private UserService userService;
 
     // 用户详情
-    @RequestMapping(value="/me", method=RequestMethod.GET)
-    public RestfulResult<User> me(@SessionAttribute("username") String username, @SessionAttribute("authorities") List<String> authorities) throws Exception {
-        User user = new User(username);
-        user.setAuthorities(authorities);
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    public RestfulResult<User> me(HttpSession session, @SessionAttribute("username") String username) throws Exception {
+        User user = userService.getUserByName(username);
+        session.setAttribute("userDetail", user);
         return new RestfulResult(user);
     }
 
     // 登出
-    @RequestMapping(value="/logout")
+    @RequestMapping(value = "/logout")
     public RestfulResult logout(HttpSession session) throws Exception {
         session.removeAttribute("username");
         session.removeAttribute("authorities");
-        return new RestfulResult(-4,"");
+        return new RestfulResult(-4, "");
     }
 }

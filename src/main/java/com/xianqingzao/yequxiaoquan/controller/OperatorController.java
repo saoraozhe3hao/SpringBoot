@@ -3,7 +3,7 @@ package com.xianqingzao.yequxiaoquan.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.xianqingzao.yequxiaoquan.common.RestfulResult;
-import com.xianqingzao.yequxiaoquan.pojo.Operator;
+import com.xianqingzao.yequxiaoquan.pojo.User;
 import com.xianqingzao.yequxiaoquan.pojo.Role;
 import com.xianqingzao.yequxiaoquan.pojo.User;
 import com.xianqingzao.yequxiaoquan.service.OperatorService;
@@ -20,42 +20,48 @@ public class OperatorController {
     @Autowired
     private OperatorService operatorServicee;
 
-    @RequestMapping(value="/operator", method=RequestMethod.GET)
-    public RestfulResult<PageInfo<Operator>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
-        Page<Operator> operators = operatorServicee.findByPage(pageNum, pageSize);
-        PageInfo<Operator> pageInfo = new PageInfo<>(operators);
+    @RequestMapping(value = "/operator", method = RequestMethod.GET)
+    public RestfulResult<PageInfo<User>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        Page<User> operators = operatorServicee.findByPage(pageNum, pageSize);
+        PageInfo<User> pageInfo = new PageInfo<>(operators);
         return new RestfulResult(pageInfo);
     }
 
-    @RequestMapping(value="/operator/role", method=RequestMethod.GET)
+    @RequestMapping(value = "/operator/role", method = RequestMethod.GET)
     public RestfulResult<List<Role>> getAllRole() {
         List roleList = operatorServicee.getAllRole();
         return new RestfulResult(roleList);
     }
 
-    @RequestMapping(value="/operator/disable", method=RequestMethod.PUT)
+    @RequestMapping(value = "/operator/disable", method = RequestMethod.PUT)
     public RestfulResult disable(@RequestBody List<Integer> idList) {
         operatorServicee.disable(idList);
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value="/operator/enable", method=RequestMethod.PUT)
+    @RequestMapping(value = "/operator/enable", method = RequestMethod.PUT)
     public RestfulResult enable(@RequestBody List<Integer> idList) {
         operatorServicee.enable(idList);
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value="/operator/{id}/password", method=RequestMethod.PUT)
-    public RestfulResult resetPwd(@PathVariable("id") String id, @RequestBody Map<String,String> map) {
+    @RequestMapping(value = "/operator/{id}/password", method = RequestMethod.PUT)
+    public RestfulResult resetPwd(@PathVariable("id") String id, @RequestBody Map<String, String> map) {
         operatorServicee.resetPwd(id, map.get("password"));
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value="/operator/{id}", method=RequestMethod.PUT)
-    public RestfulResult alter(@PathVariable("id") String id, @RequestBody Map<String,Object> map) {
-        String username = (String)map.get("username");
+    @RequestMapping(value = "/operator/{id}", method = RequestMethod.PUT)
+    public RestfulResult alter(@PathVariable("id") String id, @RequestBody Map<String, Object> map) {
+        String username = (String) map.get("username");
         List roleIds = (List<String>) map.get("roleIds");
         operatorServicee.alter(id, username, roleIds);
+        return new RestfulResult(null);
+    }
+
+    @RequestMapping(value = "/operator", method = RequestMethod.POST)
+    public RestfulResult add(@RequestBody User user, @SessionAttribute("userDetail") User creator) {
+        operatorServicee.add(creator.getId(), user);
         return new RestfulResult(null);
     }
 }
