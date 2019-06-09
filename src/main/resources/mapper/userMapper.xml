@@ -16,4 +16,8 @@
             #{role.id}
         </foreach>
     </select>
+
+    <update id="resetPwd">
+        UPDATE user SET password=#{password} WHERE id=#{id}
+    </update>
 </mapper>

@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xianqingzao.yequxiaoquan.dao.OperatorDao;
 import com.xianqingzao.yequxiaoquan.dao.RoleDao;
+import com.xianqingzao.yequxiaoquan.dao.UserDao;
 import com.xianqingzao.yequxiaoquan.pojo.Query;
 import com.xianqingzao.yequxiaoquan.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class OperatorService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private OperatorDao operatorDao;
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private RoleDao roleDao;
 
@@ -37,7 +40,7 @@ public class OperatorService {
     }
 
     public void resetPwd(String id, String password) {
-        operatorDao.resetPwd(id, passwordEncoder.encode(password));
+        userDao.resetPwd(id, passwordEncoder.encode(password));
     }
 
     public List getAllRole() {

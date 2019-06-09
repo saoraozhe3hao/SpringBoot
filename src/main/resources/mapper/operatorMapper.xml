@@ -32,10 +32,6 @@
         ORDER BY id
     </update>
 
-    <update id="resetPwd">
-        UPDATE user SET password=#{password} WHERE id=#{id}
-    </update>
-
     <update id="alter">
         UPDATE USER SET username=#{username} WHERE id=#{id}
     </update>

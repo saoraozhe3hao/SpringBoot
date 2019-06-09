@@ -11,4 +11,5 @@ public interface UserDao {
     public User getUserByName(String username);
     public List<Role> getRolesByUserId(String userId);
     public List<String> getAuthoritiesByRoles(List<Role> roles);
+    void resetPwd(String id, String password);
 }

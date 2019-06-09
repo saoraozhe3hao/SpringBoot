@@ -13,8 +13,6 @@ public interface OperatorDao {
 
     void changeStatus(List idList, String status);
 
-    void resetPwd(String id, String password);
-
     void alter(String id, String username);
 
     void cleanRole(String userId);
