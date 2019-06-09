@@ -36,7 +36,7 @@ public class OperatorController {
     }
 
     @RequestMapping(value = "/operator/role", method = RequestMethod.GET)
-    public RestfulResult<List<Role>> getAllRole() {
+    public RestfulResult getAllRole() {
         List roleList = operatorServicee.getAllRole();
         return new RestfulResult(roleList);
     }

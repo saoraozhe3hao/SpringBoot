@@ -2,7 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xianqingzao.yequxiaoquan.dao.RoleDao">    <!-- SQL操作接口 -->
 
-    <select id="getAllRole" resultType="Role">
+    <select id="findByPage" resultMap="roleMap">
+        <!-- 用左外连接方式实现 有悬浮组的一对一查询 -->
         SELECT * FROM role
+        <where>
+            <if test="search !=null and search !=''">
+                AND name LIKE concat('%', #{search}, '%')
+            </if>
+            <if test="status !=null and status !=''">
+                AND status=#{status}
+            </if>
+        </where>
+        ORDER BY id
     </select>
+
+    <!-- 跨多表，用级联单独查询 -->
+    <resultMap type="Role" id="roleMap">
+        <!-- 级联必须指定主键 -->
+        <id column="id" property="id"/>
+        <collection property="authorities" column="id" select="getAuthoritiesByRoleId"/>
+    </resultMap>
+
+    <!-- 用等值连接实现 无悬浮组的一对一查询(roleId定后，user_role表与role表 一对一) -->
+    <select id="getAuthoritiesByRoleId" parameterType="String" resultType="Authority">
+        SELECT authority.* FROM role_authority,authority WHERE role_authority.roleId=#{roleId} AND role_authority.authorityId=authority.id
+    </select>
+
+    <select id="findAll" resultType="Role">
+        SELECT * FROM role where status='normal'
+    </select>
+    <select id="findAllAuthority" resultType="Authority">
+        SELECT * FROM authority
+    </select>
+
+    <update id="changeStatus">
+        UPDATE role SET status=#{status} WHERE id IN
+        <foreach item="roleId" index="index" collection="idList" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+        ORDER BY id
+    </update>
+    <delete id="removeUserRole">
+        DELETE FROM user_role WHERE roleId IN
+        <foreach item="roleId" index="index" collection="list" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+    <update id="alter">
+        UPDATE role SET name=#{name} WHERE id=#{id}
+    </update>
+    <delete id="cleanAuthority">
+        DELETE FROM role_authority WHERE roleId=#{roleId}
+    </delete>
+    <insert id="addAuthorityList">
+        INSERT INTO role_authority(roleId, authorityId) VALUES
+        <foreach item="authorityId" index="index" collection="authorityIds" separator=",">
+            (#{roleId} , #{authorityId})
+        </foreach>
+    </insert>
+
+    <!-- useGeneratedKeys表示插入后，将数据库ID回填给入参， keyProperty指明回填的POJO字段 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO role (name, status)
+        VALUES (#{name},#{status})
+    </insert>
 </mapper>

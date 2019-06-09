@@ -12,6 +12,7 @@
                 AND status=#{status}
             </if>
         </where>
+        ORDER BY id
     </select>
 
     <!-- 多参数，入参是List -->
