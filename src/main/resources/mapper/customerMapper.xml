@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.CustomerDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultType="Customer">
+        SELECT * FROM customer
+        <where>   <!-- 能把多余的and去掉 -->
+            <if test="search !=null and search !=''">
+                AND (nickname LIKE concat('%', #{search}, '%') OR mobile LIKE concat('%', #{search}, '%'))
+            </if>
+            <if test="status !=null and status !=''">
+                AND status=#{status}
+            </if>
+        </where>
+    </select>
+
+    <!-- 多参数，入参是List -->
+    <update id="changeStatus">
+        UPDATE customer SET status=#{status} WHERE id IN
+        <foreach item="customerId" index="index" collection="idList" open="(" separator="," close=")">
+            #{customerId}
+        </foreach>
+        ORDER BY id
+    </update>
+</mapper>

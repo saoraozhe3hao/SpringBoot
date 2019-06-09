@@ -8,7 +8,7 @@
         operator.creatorId=creator.id
         <where>   <!-- 能把多余的and去掉 -->
             <if test="search !=null and search !=''">
-                AND operator.name LIKE concat('%', #{search}, '%')
+                AND (operator.name LIKE concat('%', #{search}, '%') OR operator.username LIKE concat('%', #{search}, '%'))
             </if>
             <if test="status !=null and status !=''">
                 AND operator.status=#{status}

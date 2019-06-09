@@ -11,6 +11,13 @@ public class Query implements Serializable {
     private String search;
     private String status;
 
+    public Query(int pageNum, int pageSize, String search, String status) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.search = search;
+        this.status = status;
+    }
+
     public Query(int pageNum, int pageSize, String search) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;

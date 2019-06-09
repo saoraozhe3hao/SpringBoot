@@ -26,11 +26,10 @@ public class OperatorController {
     private OperatorService operatorServicee;
 
     @RequestMapping(value = "/operator", method = RequestMethod.GET)
-    public RestfulResult<PageInfo<User>> findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize,
+    public RestfulResult findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize,
                                                     @RequestParam(value = "search", required = false) String search,
                                                     @RequestParam(value = "status", required = false) String status) {
-        Query query = new Query(pageNum, pageSize, search);
-        query.setStatus(status);
+        Query query = new Query(pageNum, pageSize, search, status);
         Page<User> operators = operatorServicee.findByPage(query);
         PageInfo<User> pageInfo = new PageInfo<>(operators);
         return new RestfulResult(pageInfo);
