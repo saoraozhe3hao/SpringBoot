@@ -30,7 +30,7 @@ public class RoleController {
                                                     @RequestParam(value = "status", required = false) String status) {
         Query query = new Query(pageNum, pageSize, search, status);
         Page<User> operators = roleService.findByPage(query);
-        PageInfo<User> pageInfo = new PageInfo<>(operators);
+        PageInfo<User> pageInfo = new PageInfo(operators);
         return new RestfulResult(pageInfo);
     }
 

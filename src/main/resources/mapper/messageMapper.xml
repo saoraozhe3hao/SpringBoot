@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.MessageDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultMap="messageMap">
+        <!-- 用等值连接方式实现 无悬浮组的一对一查询 -->
+        SELECT message.*,customer.nickname as customerNick FROM message,customer where message.customerId=customer.id
+            <if test="search !=null and search !=''">
+                AND (customer.nickname LIKE concat('%', #{search}, '%') OR customer.id LIKE concat('%', #{search}, '%'))
+            </if>
+            <if test="status !=null and status !=''">
+                AND message.status=#{status}
+            </if>
+        ORDER BY time
+    </select>
+
+    <!-- 跨多表，用级联单独查询 -->
+    <resultMap type="Message" id="messageMap">
+        <!-- 级联必须指定主键 -->
+        <id column="id" property="id"/>
+<!--        <collection property="roles" column="id" select="com.xianqingzao.yequxiaoquan.dao.UserDao.getRolesByUserId"/>-->
+    </resultMap>
+
+    <!-- 多参数，入参是List -->
+    <update id="changeStatus">
+        UPDATE user SET status=#{status} WHERE id IN
+        <foreach item="userId" index="index" collection="idList" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        ORDER BY id
+    </update>
+
+    <update id="alter">
+        UPDATE user SET username=#{username} WHERE id=#{id}
+    </update>
+    <delete id="cleanRole">
+        DELETE FROM user_role WHERE userId=#{userId}
+    </delete>
+    <insert id="addRoleList">
+        INSERT INTO user_role(userId, roleId) VALUES
+        <foreach item="roleId" index="index" collection="roleIds" separator=",">
+            (#{userId} , #{roleId})
+        </foreach>
+    </insert>
+
+    <!-- useGeneratedKeys表示插入后，将数据库ID回填给入参， keyProperty指明回填的POJO字段 -->
+    <insert id="add" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO user(username, password, name, idNumber, creatorId, status)
+        VALUES (#{user.username},#{user.password},#{user.name},#{user.idNumber},#{creatorId},#{user.status})
+    </insert>
+</mapper>

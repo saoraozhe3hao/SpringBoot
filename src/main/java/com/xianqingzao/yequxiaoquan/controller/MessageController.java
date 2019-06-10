@@ -5,71 +5,70 @@ import com.github.pagehelper.PageInfo;
 import com.xianqingzao.yequxiaoquan.common.FirstValidGroup;
 import com.xianqingzao.yequxiaoquan.common.RestfulResult;
 import com.xianqingzao.yequxiaoquan.common.SecondValidGroup;
+import com.xianqingzao.yequxiaoquan.pojo.Message;
 import com.xianqingzao.yequxiaoquan.pojo.Query;
 import com.xianqingzao.yequxiaoquan.pojo.User;
-import com.xianqingzao.yequxiaoquan.pojo.Role;
+import com.xianqingzao.yequxiaoquan.service.MessageService;
 import com.xianqingzao.yequxiaoquan.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
-public class OperatorController {
+public class MessageController {
 
     @Autowired
-    private OperatorService operatorServicee;
+    private MessageService messageServicee;
 
-    @RequestMapping(value = "/operator", method = RequestMethod.GET)
+    @RequestMapping(value = "/message", method = RequestMethod.GET)
     public RestfulResult findByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize,
                                                     @RequestParam(value = "search", required = false) String search,
                                                     @RequestParam(value = "status", required = false) String status) {
         Query query = new Query(pageNum, pageSize, search, status);
-        Page<User> operators = operatorServicee.findByPage(query);
-        PageInfo<User> pageInfo = new PageInfo(operators);
+        Page<Message> messages = messageServicee.findByPage(query);
+        PageInfo<User> pageInfo = new PageInfo(messages);
         return new RestfulResult(pageInfo);
     }
 
-    @RequestMapping(value = "/operator/role", method = RequestMethod.GET)
+    @RequestMapping(value = "/message/role", method = RequestMethod.GET)
     public RestfulResult getAllRole() {
-        List roleList = operatorServicee.getAllRole();
+        List roleList = messageServicee.getAllRole();
         return new RestfulResult(roleList);
     }
 
-    @RequestMapping(value = "/operator/disable", method = RequestMethod.PUT)
+    @RequestMapping(value = "/message/disable", method = RequestMethod.PUT)
     public RestfulResult disable(@RequestBody List<Integer> idList) {
-        operatorServicee.disable(idList);
+        messageServicee.disable(idList);
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value = "/operator/enable", method = RequestMethod.PUT)
+    @RequestMapping(value = "/message/enable", method = RequestMethod.PUT)
     public RestfulResult enable(@RequestBody List<Integer> idList) {
-        operatorServicee.enable(idList);
+        messageServicee.enable(idList);
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value = "/operator/{id}/password", method = RequestMethod.PUT)
+    @RequestMapping(value = "/message/{id}/password", method = RequestMethod.PUT)
     // @Validated 是Spring对@Valid的封装，有对属性的分组功能
     public RestfulResult resetPwd(@PathVariable("id") String id, @Validated({FirstValidGroup.class}) @RequestBody User user) {
-        operatorServicee.resetPwd(id, user.getPwd());
+        messageServicee.resetPwd(id, user.getPwd());
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value = "/operator/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/message/{id}", method = RequestMethod.PUT)
     public RestfulResult alter(@PathVariable("id") String id, @Validated({SecondValidGroup.class}) @RequestBody User user) {
-        operatorServicee.alter(id, user.getUsername(), user.getRoleIds());
+        messageServicee.alter(id, user.getUsername(), user.getRoleIds());
         return new RestfulResult(null);
     }
 
-    @RequestMapping(value = "/operator", method = RequestMethod.POST)
+    @RequestMapping(value = "/message", method = RequestMethod.POST)
     // @Valid 来自hibernate-validator，没有对属性的分组功能
     public RestfulResult add(@Valid @RequestBody User user, @SessionAttribute("userDetail") User creator) {
-        operatorServicee.add(creator.getId(), user);
+        messageServicee.add(creator.getId(), user);
         return new RestfulResult(null);
     }
 }

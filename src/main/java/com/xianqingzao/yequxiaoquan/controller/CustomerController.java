@@ -26,7 +26,7 @@ public class CustomerController {
                                                     @RequestParam(value = "status", required = false) String status) {
         Query query = new Query(pageNum, pageSize, search, status);
         Page<Customer> customers = customerService.findByPage(query);
-        PageInfo<Customer> pageInfo = new PageInfo<>(customers);
+        PageInfo<Customer> pageInfo = new PageInfo(customers);
         return new RestfulResult(pageInfo);
     }
 
