@@ -1,9 +1,7 @@
 package com.xianqingzao.yequxiaoquan.dao;
 
 import com.github.pagehelper.Page;
-import com.xianqingzao.yequxiaoquan.pojo.Message;
-import com.xianqingzao.yequxiaoquan.pojo.Query;
-import com.xianqingzao.yequxiaoquan.pojo.User;
+import com.xianqingzao.yequxiaoquan.pojo.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,13 +10,9 @@ import java.util.List;
 public interface MessageDao {
     Page<Message> findByPage(Query query);
 
-    void changeStatus(List idList, String status);
+    public List<Reply> getRepliesByMessageId(String messageId);
 
-    void alter(String id, String username);
+    void reply(Reply reply);
 
-    void cleanRole(String userId);
-
-    void addRoleList(String userId, List roleIds);
-
-    void add(String creatorId, User user);
+    void changeStatus(String id, String status);
 }

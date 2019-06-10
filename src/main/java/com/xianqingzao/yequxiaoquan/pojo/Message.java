@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonInclude(JsonInclude.Include.NON_NULL)  // 值未null的不输出
@@ -14,6 +15,7 @@ public class Message implements Serializable {
     private String detail;
     private String status;
     private String time;
+    List<Reply> replyList;
 
     public Message() {
 
@@ -65,5 +67,13 @@ public class Message implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Reply> getReplyList() {
+        return replyList;
+    }
+
+    public void setReplyList(List<Reply> replyList) {
+        this.replyList = replyList;
     }
 }

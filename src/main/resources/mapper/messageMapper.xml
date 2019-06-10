@@ -11,41 +11,25 @@
             <if test="status !=null and status !=''">
                 AND message.status=#{status}
             </if>
-        ORDER BY time
+        ORDER BY time DESC
     </select>
-
     <!-- 跨多表，用级联单独查询 -->
     <resultMap type="Message" id="messageMap">
         <!-- 级联必须指定主键 -->
         <id column="id" property="id"/>
-<!--        <collection property="roles" column="id" select="com.xianqingzao.yequxiaoquan.dao.UserDao.getRolesByUserId"/>-->
+        <collection property="replyList" column="id" select="getRepliesByMessageId"/>
     </resultMap>
-
-    <!-- 多参数，入参是List -->
-    <update id="changeStatus">
-        UPDATE user SET status=#{status} WHERE id IN
-        <foreach item="userId" index="index" collection="idList" open="(" separator="," close=")">
-            #{userId}
-        </foreach>
-        ORDER BY id
-    </update>
-
-    <update id="alter">
-        UPDATE user SET username=#{username} WHERE id=#{id}
-    </update>
-    <delete id="cleanRole">
-        DELETE FROM user_role WHERE userId=#{userId}
-    </delete>
-    <insert id="addRoleList">
-        INSERT INTO user_role(userId, roleId) VALUES
-        <foreach item="roleId" index="index" collection="roleIds" separator=",">
-            (#{userId} , #{roleId})
-        </foreach>
-    </insert>
+    <!-- 用等值连接实现 无悬浮组的一对一查询(userId定后，user_role表与role表 一对一) -->
+    <select id="getRepliesByMessageId" resultType="Reply">
+        SELECT reply.*,user.name as operator FROM reply,user WHERE reply.messageId=#{messageId} AND reply.operatorId=user.id  ORDER BY time DESC
+    </select>
 
     <!-- useGeneratedKeys表示插入后，将数据库ID回填给入参， keyProperty指明回填的POJO字段 -->
-    <insert id="add" useGeneratedKeys="true" keyProperty="user.id">
-        INSERT INTO user(username, password, name, idNumber, creatorId, status)
-        VALUES (#{user.username},#{user.password},#{user.name},#{user.idNumber},#{creatorId},#{user.status})
+    <insert id="reply" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reply(messageId, operatorId, detail)
+        VALUES (#{messageId},#{operatorId},#{detail})
     </insert>
+    <update id="changeStatus">
+        UPDATE message SET status=#{status} WHERE id=#{id}
+    </update>
 </mapper>
