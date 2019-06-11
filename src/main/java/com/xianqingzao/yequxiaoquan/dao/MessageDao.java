@@ -10,7 +10,7 @@ import java.util.List;
 public interface MessageDao {
     Page findByPage(Query query);
 
-    public List<Reply> getRepliesByMessageId(String messageId);
+    public List getRepliesByMessageId(String messageId);
 
     void reply(Reply reply);
 

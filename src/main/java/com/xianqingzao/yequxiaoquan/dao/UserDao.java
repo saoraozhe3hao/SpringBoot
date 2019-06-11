@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UserDao {
     public User getUserByName(String username);
-    public List<Role> getRolesByUserId(String userId);
-    public List<String> getAuthoritiesByRoles(List<Role> roles);
+    public List getRolesByUserId(String userId);
+    public List getAuthoritiesByRoles(List<Role> roles);
     void resetPwd(String id, String password);
 }

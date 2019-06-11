@@ -13,13 +13,16 @@ public class Merchant implements Serializable {
     private String merchantName;
     private String realName;
     private String idNumber;
-    private Float score;
+    private Double score;
     @NotNull
     @DecimalMin("0.1")
     @DecimalMax("5")
     private Float deductScore;
     private String status;
     private String mobile;
+    private String bankNumber;
+    private String OpeningBank;
+    private String balance;
 
     public Merchant() {
 
@@ -57,12 +60,36 @@ public class Merchant implements Serializable {
         this.idNumber = idNumber;
     }
 
-    public Float getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Float score) {
+    public void setScore(Double score) {
         this.score = score;
+    }
+
+    public String getBankNumber() {
+        return bankNumber;
+    }
+
+    public void setBankNumber(String bankNumber) {
+        this.bankNumber = bankNumber;
+    }
+
+    public String getOpeningBank() {
+        return OpeningBank;
+    }
+
+    public void setOpeningBank(String openingBank) {
+        OpeningBank = openingBank;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public String getStatus() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.WithdrawDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultMap="withdrawMap">
+        <!-- 多表连接 -->
+        SELECT withdraw.*,user.name as operator,
+        merchant.merchantName,merchant.realName,merchant.bankNumber,merchant.openingBank
+        FROM withdraw JOIN merchant ON withdraw.merchantId=merchant.id LEFT JOIN user ON withdraw.operatorId=user.id
+        <where>
+            <if test="search !=null and search !=''">
+                AND (user.name LIKE concat('%', #{search}, '%') OR merchant.merchantName LIKE concat('%', #{search},
+                '%'))
+            </if>
+            <if test="status !=null and status !=''">
+                AND withdraw.status=#{status}
+            </if>
+        </where>
+        ORDER BY time DESC
+    </select>
+    <!-- 主查询已有子对象信息，用级联赋值 -->
+    <resultMap type="Withdraw" id="withdrawMap">
+        <!-- 级联必须指定主键 -->
+        <id column="id" property="id"/>
+        <result column="merchantId" property="merchantId"/>
+        <result column="amount" property="amount"/>
+        <result column="status" property="status"/>
+        <result column="time" property="time"/>
+        <result column="operator" property="operator"/>
+        <association property="merchant">
+            <id column="merchantId" property="id"/>
+            <result column="merchantName" property="merchantName"/>
+            <result column="realName" property="realName"/>
+            <result column="bankNumber" property="bankNumber"/>
+            <result column="openingBank" property="openingBank"/>
+        </association>
+    </resultMap>
+
+    <update id="handling">
+        UPDATE withdraw SET status='handling',operatorId=#{operatorId} WHERE id=#{withdrawId} AND status='pending'
+    </update>
+
+    <!-- 子查询 -->
+    <update id="deductBalance">
+        UPDATE merchant SET balance=balance-(select amount from withdraw where id=#{withdrawId}) WHERE id=(select merchantId from withdraw where id=#{withdrawId})
+    </update>
+    <update id="paid">
+        UPDATE withdraw SET status='paid',operatorId=#{operatorId} WHERE id=#{withdrawId} AND status='handling'
+    </update>
+</mapper>

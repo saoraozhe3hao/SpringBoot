@@ -14,7 +14,7 @@ public interface RoleDao {
 
     public List<Role> findAll();
 
-    public List<Authority> getAuthoritiesByRoleId(String roleId);
+    public List getAuthoritiesByRoleId(String roleId);
 
     void changeStatus(List idList, String status);
 
