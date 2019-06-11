@@ -1,23 +1,30 @@
 package com.xianqingzao.yequxiaoquan.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonInclude(JsonInclude.Include.NON_NULL)  // 值为null的不输出
-public class Reply implements Serializable {
+public class Record implements Serializable {
+    @JsonIgnore
     private String id;
-    private String messageId;
+    @JsonIgnore
     private String operatorId;
-    private String operator;
+    @JsonIgnore
+    private String reportId;
     private String time;
     @NotBlank
     private String detail;
+    private String reportStatus;
+    private String type;
+    private String operator;
 
-    public Reply() {
+    public Record() {
 
     }
 
@@ -27,22 +34,6 @@ public class Reply implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
-    public String getOperatorId() {
-        return operatorId;
-    }
-
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
     }
 
     public String getTime() {
@@ -61,11 +52,43 @@ public class Reply implements Serializable {
         this.detail = detail;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public String getReportStatus() {
+        return reportStatus;
+    }
+
+    public void setReportStatus(String reportStatus) {
+        this.reportStatus = reportStatus;
+    }
+
     public String getOperator() {
         return operator;
     }
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public String getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
     }
 }

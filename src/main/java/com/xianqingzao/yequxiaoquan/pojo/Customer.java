@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonInclude(JsonInclude.Include.NON_NULL)  // 值未null的不输出
+@JsonInclude(JsonInclude.Include.NON_NULL)  // 值为null的不输出
 public class Customer implements Serializable {
     private String id;
     private String nickname;

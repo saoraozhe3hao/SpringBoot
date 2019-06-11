@@ -27,8 +27,8 @@ public class OperatorService {
 
     public Page findByPage(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
-        Page<User> operators = operatorDao.findByPage(query);
-        return operators;
+        Page page = operatorDao.findByPage(query);
+        return page;
     }
 
     public void disable(List idList) {

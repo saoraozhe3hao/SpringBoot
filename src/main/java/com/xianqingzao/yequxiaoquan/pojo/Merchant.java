@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonInclude(JsonInclude.Include.NON_NULL)  // 值未null的不输出
+@JsonInclude(JsonInclude.Include.NON_NULL)  // 值为null的不输出
 public class Merchant implements Serializable {
     private String id;
     private String merchantName;

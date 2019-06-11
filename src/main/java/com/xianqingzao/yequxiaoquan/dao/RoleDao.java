@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface RoleDao {
-    public List<Role> findAll();
+    Page findByPage(Query query);
 
-    Page<Role> findByPage(Query query);
+    public List<Role> findAll();
 
     public List<Authority> getAuthoritiesByRoleId(String roleId);
 

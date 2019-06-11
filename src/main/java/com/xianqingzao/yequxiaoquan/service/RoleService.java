@@ -24,8 +24,8 @@ public class RoleService {
 
     public Page findByPage(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
-        Page<Role> roles = roleDao.findByPage(query);
-        return roles;
+        Page page = roleDao.findByPage(query);
+        return page;
     }
 
     @Transactional

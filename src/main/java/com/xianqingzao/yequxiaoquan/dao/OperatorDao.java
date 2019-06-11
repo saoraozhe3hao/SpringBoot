@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface OperatorDao {
-    Page<User> findByPage(Query query);
+    Page findByPage(Query query);
 
     void changeStatus(List idList, String status);
 

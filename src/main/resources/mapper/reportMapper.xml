@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.ReportDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultMap="reportMap">
+        <!-- 用等值连接方式实现 无悬浮组的一对一查询 -->
+        SELECT report.*,customer.nickname as customerName, merchant.merchantName FROM report,customer,merchant WHERE
+        customer.id=report.customerId AND merchant.id=report.merchantId
+        <if test="search !=null and search !=''">
+            AND (customer.nickname LIKE concat('%', #{search}, '%') OR merchant.merchantName LIKE concat('%', #{search}, '%'))
+        </if>
+        <if test="status !=null and status !=''">
+            AND report.status=#{status}
+        </if>
+        ORDER BY time DESC
+    </select>
+    <!-- 跨多表，用级联单独查询 -->
+    <resultMap type="Report" id="reportMap">
+        <!-- 级联必须指定主键 -->
+        <id column="id" property="id"/>
+        <collection property="recordList" column="id" select="getRecordsByReportId"/>
+    </resultMap>
+    <!-- 用等值连接实现 无悬浮组的一对一查询 -->
+    <select id="getRecordsByReportId" resultType="Record">
+        SELECT record.*,user.name as operator FROM record,user WHERE record.reportId=#{reportId} AND record.operatorId=user.id  ORDER BY time DESC
+    </select>
+
+    <!-- useGeneratedKeys表示插入后，将数据库ID回填给入参， keyProperty指明回填的POJO字段 -->
+    <insert id="record" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO record(operatorId, reportId, detail, type, reportStatus)
+        VALUES (#{operatorId},#{reportId},#{detail}, #{type},#{reportStatus})
+    </insert>
+    <update id="changeStatus">
+        UPDATE report SET status=#{status} WHERE id=#{id}
+    </update>
+</mapper>

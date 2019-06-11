@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface MessageDao {
-    Page<Message> findByPage(Query query);
+    Page findByPage(Query query);
 
     public List<Reply> getRepliesByMessageId(String messageId);
 

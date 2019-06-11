@@ -21,10 +21,10 @@ public class CustomerService {
     @Autowired
     private CustomerDao customerDao;
 
-    public Page<Customer> findByPage(Query query) {
+    public Page findByPage(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
-        Page<Customer> customers = customerDao.findByPage(query);
-        return customers;
+        Page page = customerDao.findByPage(query);
+        return page;
     }
 
     public void forbid(List idList) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface MerchantDao {
-    Page<Merchant> findByPage(Query query);
+    Page findByPage(Query query);
 
     void changeStatus(List idList, String status);
 

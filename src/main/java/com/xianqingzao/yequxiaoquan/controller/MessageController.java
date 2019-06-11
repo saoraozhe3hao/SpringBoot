@@ -24,8 +24,8 @@ public class MessageController {
                                                     @RequestParam(value = "search", required = false) String search,
                                                     @RequestParam(value = "status", required = false) String status) {
         Query query = new Query(pageNum, pageSize, search, status);
-        Page<Message> messages = messageServicee.findByPage(query);
-        PageInfo<User> pageInfo = new PageInfo(messages);
+        Page page = messageServicee.findByPage(query);
+        PageInfo pageInfo = new PageInfo(page);
         return new RestfulResult(pageInfo);
     }
 

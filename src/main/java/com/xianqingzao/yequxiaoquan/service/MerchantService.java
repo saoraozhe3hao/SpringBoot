@@ -18,8 +18,8 @@ public class MerchantService {
 
     public Page findByPage(Query query) {
         PageHelper.startPage(query.getPageNum(), query.getPageSize());
-        Page<Merchant> operators = merchantDao.findByPage(query);
-        return operators;
+        Page page = merchantDao.findByPage(query);
+        return page;
     }
 
     public void disable(List idList) {

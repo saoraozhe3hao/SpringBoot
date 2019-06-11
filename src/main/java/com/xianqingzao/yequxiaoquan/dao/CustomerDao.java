@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CustomerDao {
-    Page<Customer> findByPage(Query query);
+    Page findByPage(Query query);
 
     void changeStatus(List idList, String status);
 }

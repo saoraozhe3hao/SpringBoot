@@ -4,7 +4,7 @@
 
     <select id="findByPage" resultMap="messageMap">
         <!-- 用等值连接方式实现 无悬浮组的一对一查询 -->
-        SELECT message.*,customer.nickname as customerNick FROM message,customer where message.customerId=customer.id
+        SELECT message.*,customer.nickname as customerNick FROM message,customer WHERE message.customerId=customer.id
             <if test="search !=null and search !=''">
                 AND (customer.nickname LIKE concat('%', #{search}, '%') OR customer.id LIKE concat('%', #{search}, '%'))
             </if>
