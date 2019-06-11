@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.MerchantDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultType="Merchant">
+        <!-- 用等值连接实现 无悬浮组的一对一查询 -->
+        SELECT merchant.*,customer.mobile FROM merchant,customer WHERE merchant.id=customer.id
+        <if test="search !=null and search !=''">
+            AND (merchant.merchantName LIKE concat('%', #{search}, '%') OR merchant.realName LIKE concat('%', #{search}, '%'))
+        </if>
+        <if test="status !=null and status !=''">
+            AND merchant.status=#{status}
+        </if>
+        ORDER BY id
+    </select>
+
+    <!-- 多参数，入参是List -->
+    <update id="changeStatus">
+        UPDATE merchant SET status=#{status} WHERE id IN
+        <foreach item="merchantId" index="index" collection="idList" open="(" separator="," close=")">
+            #{merchantId}
+        </foreach>
+        ORDER BY id
+    </update>
+
+    <update id="deduct">
+        UPDATE merchant SET score=score-#{deductScore} WHERE id=#{id} AND score>=#{deductScore}
+    </update>
+
+</mapper>
