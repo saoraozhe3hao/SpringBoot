@@ -20,7 +20,6 @@
         <foreach item="merchantId" index="index" collection="idList" open="(" separator="," close=")">
             #{merchantId}
         </foreach>
-        ORDER BY id
     </update>
 
     <update id="deduct">

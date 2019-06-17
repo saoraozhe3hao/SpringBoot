@@ -30,7 +30,6 @@
         <foreach item="userId" index="index" collection="idList" open="(" separator="," close=")">
             #{userId}
         </foreach>
-        ORDER BY id
     </update>
 
     <update id="alter">

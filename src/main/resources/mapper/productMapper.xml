@@ -3,6 +3,26 @@
 <mapper namespace="com.xianqingzao.yequxiaoquan.dao.ProductDao">    <!-- SQL操作接口 -->
 
     <select id="findByPage" resultType="Product">
-        select * from product
+        <!-- 用等值连接方式实现 无悬浮组的一对一查询 -->
+        SELECT product.*,merchant.merchantName FROM product,merchant where product.merchantId=merchant.id
+        <if test="search !=null and search !=''">
+            AND (product.id =#{search} OR merchant.id=#{search})
+        </if>
+        <if test="status !=null and status !=''">
+            AND product.status=#{status}
+        </if>
+        ORDER BY id
     </select>
+
+    <update id="audit">
+        UPDATE product SET status=#{status}
+        <if test="reason !=null">
+            ,refuseReason=#{reason}
+        </if>
+        WHERE id=#{id} AND status='pending'
+    </update>
+
+    <update id="offShelf">
+        UPDATE product SET status='underShelf' WHERE id=#{id} AND status IN ('noneOrder','ordering')
+    </update>
 </mapper>

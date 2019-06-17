@@ -21,6 +21,5 @@
         <foreach item="customerId" index="index" collection="idList" open="(" separator="," close=")">
             #{customerId}
         </foreach>
-        ORDER BY id
     </update>
 </mapper>

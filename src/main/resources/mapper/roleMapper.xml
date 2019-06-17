@@ -39,7 +39,6 @@
         <foreach item="roleId" index="index" collection="idList" open="(" separator="," close=")">
             #{roleId}
         </foreach>
-        ORDER BY id
     </update>
     <delete id="removeUserRole">
         DELETE FROM user_role WHERE roleId IN
