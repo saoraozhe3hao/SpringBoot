@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.CommentDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultType="Comment">
+        SELECT comment.*,o.customerId,o.productId,o.payTime,o.useTime,
+        customer.nickname as customerName, product.merchantId,product.name as productName,merchant.merchantName
+        FROM comment
+        LEFT JOIN `order` o ON comment.orderId=o.id
+        LEFT JOIN customer ON customer.id=o.customerId
+        LEFT JOIN product ON product.id=o.productId
+        LEFT JOIN merchant ON merchant.id=product.merchantId
+        WHERE deleted!=1
+        <if test="search !=null and search !=''">
+            AND (o.id =#{search} OR customer.id =#{search} OR product.id =#{search} OR merchant.id =#{search})
+        </if>
+        ORDER BY id
+    </select>
+
+    <update id="delete">
+        UPDATE comment SET deleted=true,deleterId=#{deleterId} WHERE id=#{id}
+    </update>
+</mapper>
