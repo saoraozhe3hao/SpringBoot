@@ -22,7 +22,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 只过滤登录接口
-        if ("/admin/login".equals(request.getRequestURI()) && "post".equalsIgnoreCase(request.getMethod())) {
+        if ("/login".equals(request.getRequestURI()) && "post".equalsIgnoreCase(request.getMethod())) {
             try {
                 validate(request);
             }

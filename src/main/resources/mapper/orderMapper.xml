@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xianqingzao.yequxiaoquan.dao.OrderDao">    <!-- SQL操作接口 -->
+
+    <select id="findByPage" resultType="Order">
+        <!-- 表名是sql关键字 -->
+        SELECT o.*,customer.nickname as customerName,product.name as productName,merchant.id as merchantId,
+        merchant.merchantName,refunder.name as refunderName FROM `order` o
+        LEFT JOIN customer ON o.customerId=customer.id
+        LEFT JOIN product ON o.productId=product.id
+        LEFT JOIN merchant ON product.merchantId=merchant.id
+        LEFT JOIN user refunder ON o.refunderId=refunder.id
+        <where>
+            <if test="search !=null and search !=''">
+                AND (o.id =#{search} OR o.customerId=#{search} OR o.productId=#{search}) OR merchant.id=#{search})
+            </if>
+            <if test="status !=null and status !=''">
+                AND o.status=#{status}
+            </if>
+        </where>
+        ORDER BY id
+    </select>
+
+    <!-- 小于等于 -->
+    <update id="refund">
+        UPDATE `order` SET status='refunded',refunderId=#{refunderId} WHERE id=#{id} AND status!='refunded' AND
+        DATEDIFF(NOW(),orderTime)&lt;=7
+    </update>
+
+    <update id="setOverdue">
+        UPDATE `order` SET status='overdue' WHERE status='unused' AND DATEDIFF(NOW(),orderTime)>=1
+    </update>
+</mapper>
