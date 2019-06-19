@@ -1,10 +1,7 @@
 package com.xianqingzao.yequxiaoquan.dao;
 
 import com.github.pagehelper.Page;
-import com.xianqingzao.yequxiaoquan.pojo.Message;
-import com.xianqingzao.yequxiaoquan.pojo.Query;
-import com.xianqingzao.yequxiaoquan.pojo.Record;
-import com.xianqingzao.yequxiaoquan.pojo.Reply;
+import com.xianqingzao.yequxiaoquan.pojo.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +11,8 @@ public interface ReportDao {
     Page findByPage(Query query);
 
     public List getRecordsByReportId(String reportId);
+
+    Report findById(String id);
 
     void record(Record record);
 

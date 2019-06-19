@@ -10,18 +10,55 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)  // 值为null的不输出
 public class Report implements Serializable {
     private String id;
+    private String category; // 举报 还是 退款
     private String type;
     private String time;
     private String detail;
     private String status;
+    List<Record> recordList;
+
     private String customerId;
     private String customerName;
     private String merchantId;
     private String merchantName;
-    List<Record> recordList;
+    private String orderId;
+    private String productId;
+    private String productName;
 
     public Report() {
 
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getId() {

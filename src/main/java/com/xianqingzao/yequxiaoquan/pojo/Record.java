@@ -28,6 +28,11 @@ public class Record implements Serializable {
 
     }
 
+    public Record(String operatorId, String reportId) {
+        this.operatorId = operatorId;
+        this.reportId = reportId;
+    }
+
     public String getId() {
         return id;
     }
