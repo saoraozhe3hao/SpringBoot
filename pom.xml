@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>mysql</groupId>    <!-- mysql需要在配置文件里配置时区，default-time-zone='+08:00' -->
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>    <!-- 版本得跟mysql版本一致 -->
+			<version>8.0.28</version>    <!-- 版本得跟mysql版本一致 -->
 		</dependency>
 
 		<dependency>
